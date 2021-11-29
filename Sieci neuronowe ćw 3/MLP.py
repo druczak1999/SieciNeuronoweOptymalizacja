@@ -96,7 +96,7 @@ class MLP:
     def weights_update_adagrad(self,weights,mi,a,diff,change, gradient, bias):
         for i in range(len(weights)):
             for j in range(len(weights[i])):
-                gradient[i][j]=((a[j][i]*diff[j])**2)
+                gradient[i][j]+=((a[j][i]*diff[j])**2)
                 weights[i][j] += (-1*mi* a[j][i]*diff[j]) / (np.sqrt(gradient[i][j]) + np.finfo(np.float32).eps)
             bias[i]+= (-1*mi* (sum(a[i])/len(a[i]))*(sum(diff)/len(diff))) / (np.sqrt(sum(gradient[i])/len(gradient[i])) + np.finfo(np.float32).eps)
         return weights, gradient, bias
